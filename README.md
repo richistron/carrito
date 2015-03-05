@@ -1,4 +1,4 @@
-# Single page carrito
+# Single page carrito [![Build Status](https://travis-ci.org/richistron/carrito.svg?branch=master)](https://travis-ci.org/richistron/carrito)
 
 Simple shopping cart (dummy) created with yeoman:
 
