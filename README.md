@@ -21,6 +21,20 @@ npm -v // 2.5.1
 Install global dependencies
 ```
 npm install -g yo bower grunt grunt-cli 
-npm install -g generator-angular
+npm install -g generator-webapp
 ```
 
+Nice to have
+```
+npm install -g npm-check-updates
+```
+
+# Create  scaffolding
+
+```
+yo webapp
+```
+
+Follow the instructions and add the things that you want
+
+*You are ready to go*
