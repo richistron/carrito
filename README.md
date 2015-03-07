@@ -44,3 +44,8 @@ Follow the instructions and add the things that you want
 ```
 grunt && git subtree push --prefix dist heroku master
 ```
+
+force push
+```
+git push heroku `git subtree split --prefix dist master`:master --force
+```
