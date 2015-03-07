@@ -20,7 +20,7 @@ npm -v // 2.5.1
 
 Install global dependencies
 ```
-npm install -g yo bower grunt grunt-cli 
+npm install -g yo bower grunt-cli gulp 
 npm install -g generator-webapp
 ```
 
