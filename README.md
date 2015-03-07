@@ -38,3 +38,9 @@ yo angular
 Follow the instructions and add the things that you want
 
 *You are ready to go*
+
+# deploy 
+
+```
+grunt && git subtree push --prefix dist heroku master
+```
