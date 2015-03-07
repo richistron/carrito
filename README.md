@@ -42,7 +42,9 @@ Follow the instructions and add the things that you want
 # deploy 
 
 ```
-grunt && git subtree push --prefix dist heroku master
+grunt
+git commit -am "my message"
+git subtree push --prefix dist heroku master
 ```
 
 force push
