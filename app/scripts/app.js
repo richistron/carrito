@@ -10,8 +10,10 @@
  */
 angular
   .module('carritoApp', [
+    'ngCookies',
     'ngResource',
-    'ngRoute'
+    'ngRoute',
+    'ngSanitize'
   ])
   .config(function ($routeProvider) {
     $routeProvider
