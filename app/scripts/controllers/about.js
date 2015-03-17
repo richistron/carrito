@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name carritoApp.controller:MainCtrl
+ * @name carritoApp.controller:AboutCtrl
  * @description
- * # MainCtrl
+ * # AboutCtrl
  * Controller of the carritoApp
  */
 angular.module('carritoApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('AboutCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
