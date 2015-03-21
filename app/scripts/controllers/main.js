@@ -7,11 +7,5 @@
  * # MainCtrl
  * Controller of the carritoApp
  */
-angular.module('carritoApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+angular.module('carritoApp').controller('MainCtrl', function ($scope, products) {
+});
