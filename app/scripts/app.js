@@ -10,6 +10,7 @@
  */
 angular
   .module('carritoApp', [
+    'ngResource',
     'ngRoute'
   ])
   .config(function ($routeProvider) {
