@@ -26,6 +26,7 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
+      'app/views/**/*.html',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
@@ -34,6 +35,14 @@ module.exports = function(config) {
     // list of files / patterns to exclude
     exclude: [
     ],
+
+    preprocessors: {
+      'app/views/*.html': 'ng-html2js'
+    },
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'app/',
+    },
 
     // web server port
     port: 8080,
@@ -53,6 +62,7 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
+      'karma-ng-html2js-preprocessor',
       'karma-jasmine'
     ],
 
