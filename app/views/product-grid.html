@@ -1,0 +1,34 @@
+<table class="products-table">
+  <thead>
+    <tr>
+      <th>
+        Product Name
+      </th>
+      <th>
+        Description
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        Buy
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="product in products">
+      <td>
+        {{product.name}}
+      </td>
+      <td>
+        {{product.description}}
+      </td>
+      <td>
+        {{product.price}}
+      </td>
+      <td>
+        Buy
+      </td>
+    </tr>
+  </tbody>
+</table>
