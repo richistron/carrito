@@ -3,7 +3,7 @@
 describe('Directive: carritoWidget', function () {
 
   // load the directive's module
-  beforeEach(module('carritoApp'));
+  beforeEach(module('carritoApp', 'views/carrito-widget.html'));
 
   var element,
     scope;
@@ -12,9 +12,10 @@ describe('Directive: carritoWidget', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
+  it('should have a cart icon', inject(function ($compile) {
     element = angular.element('<carrito-widget></carrito-widget>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the carritoWidget directive');
+    scope.$digest();
+    expect(element.find('i.fa-cart-arrow-down').length).toBe(1);
   }));
 });

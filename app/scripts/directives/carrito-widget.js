@@ -8,7 +8,7 @@
  */
 angular.module('carritoApp').directive('carritoWidget', function () {
   return {
-    templateUrl: 'views/widget-carrito.html',
+    templateUrl: 'views/carrito-widget.html',
     restrict: 'E'
   };
 });
