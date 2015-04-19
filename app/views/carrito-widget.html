@@ -1,3 +1,16 @@
-<div class="carrito-widget">
+<aside class="carrito-widget">
   <i class="fa fa-cart-arrow-down fa-5x"></i>
-</div>
+  <div class="product-grid">
+    <div ng-repeat="item in items">
+      asdasd
+    </div>
+  </div>
+  <div class="totals" ng-modal="items">
+    <div class="items-count">
+      Items: {{ totalItems() }}
+    </div>
+    <div class="items-total">
+      Total: {{ getTotal() | currency: 'USD $'}}
+    </div>
+  </div>
+</aside>

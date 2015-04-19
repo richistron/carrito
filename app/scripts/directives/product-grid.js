@@ -6,12 +6,10 @@
  * @description
  * # productGrid
  */
-angular.module('carritoApp').directive('productGrid', function (products) {
+angular.module('carritoApp').directive('productGrid', function () {
   return {
     templateUrl: 'views/product-grid.html',
     restrict: 'E',
-    link: function($scope){
-      $scope.products = products.get();
-    }
+    controller: 'CheckoutCtrl'
   };
 });

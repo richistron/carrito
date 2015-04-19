@@ -9,6 +9,7 @@
 angular.module('carritoApp').directive('carritoWidget', function () {
   return {
     templateUrl: 'views/carrito-widget.html',
-    restrict: 'E'
+    restrict: 'E',
+    controller: 'CheckoutCtrl'
   };
 });

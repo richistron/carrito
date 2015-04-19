@@ -9,10 +9,15 @@
   </thead>
   <tbody>
     <tr ng-repeat="product in products">
-      <td>{{product.name}}</td>
-      <td>{{product.description}}</td>
-      <td>{{product.price}}</td>
-      <td>Buy</td>
+      <td> {{ product.name }} </td>
+      <td> {{ product.description }} </td>
+      <td ng-class="isAvailable(product) ? 'success' : 'warning'"> {{ isAvailable(product) ? 'in stock' : 'out of stock' }} </td>
+      <td> {{ product.price | currency: "USD $" }} </td>
+      <td>
+        <button class="btn btn-info" ng-click="addItem(product)" ng-disabled="!isAvailable(product)">
+          Add to cart
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
