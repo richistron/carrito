@@ -14,8 +14,11 @@
       <td ng-class="isAvailable(product) ? 'success' : 'warning'"> {{ isAvailable(product) ? 'in stock' : 'out of stock' }} </td>
       <td> {{ product.price | currency: "USD $" }} </td>
       <td>
-        <button class="btn btn-info" ng-click="addItem(product)" ng-disabled="!isAvailable(product)">
-          Add to cart
+        <button class="btn btn-default" ng-click="addToCart(product)" ng-disabled="!isAvailable(product)">
+          <i class="fa fa-plus"></i>
+        </button>
+        <button class="btn btn-default" ng-click="removeFromCart(product)" ng-disabled="!isOnCart(product)">
+          <i class="fa fa-minus"></i>
         </button>
       </td>
     </tr>

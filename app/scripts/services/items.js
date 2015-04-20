@@ -6,6 +6,7 @@
  * @description
  * # items
  * Factory in the carritoApp.
+ * items on cart
  */
 angular.module('carritoApp').factory('itemsFactory', function () {
   var storageId = 'checkout-items';
