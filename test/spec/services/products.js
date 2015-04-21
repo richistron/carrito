@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: products', function () {
+xdescribe('Service: products', function () {
 
   // load the service's module
   beforeEach(module('carritoApp'));

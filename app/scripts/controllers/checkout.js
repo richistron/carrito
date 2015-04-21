@@ -33,10 +33,13 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, itemsF
 
   // add item 
   $scope.addToCart = function(product) {
+    console.log(product);
+    return $scope.products;
   };
 
   // remove from cart
   $scope.removeFromCart = function(product) {
+    console.log(product);
   };
 
   // tools
