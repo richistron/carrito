@@ -1,1 +1,1 @@
-<div class="carrito-widget"> <i class="fa fa-cart-arrow-down fa-5x"></i> </div>
+<aside class="carrito-widget"> <i class="fa fa-cart-arrow-down fa-5x"></i> <div class="product-grid"> <div class="product-im" ng-repeat="item in items"> <img src="http://www.placecage.com/c/20/20"> </div> </div> <div class="totals" ng-modal="items"> <div class="items-count"> Items: {{ totalItems() }} </div> <div class="items-total"> Total: {{ getTotal() | currency: 'USD $'}} </div> </div> </aside>
