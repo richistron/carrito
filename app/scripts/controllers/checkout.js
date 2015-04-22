@@ -7,17 +7,16 @@
  * # CheckoutCtrl
  * Controller of the carritoApp
  */
-angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, itemsFactory, productsFactory) {
+angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, itemsOnCart, productsFactory) {
   localStorage.clear();
   
 
   // watchers
-  $scope.$watch('products', function(n,o) {
-    if (n !== o) {
-      console.log('save fatory', $scope.itemsOnCart);
-      itemsFactory.set( $scope.itemsOnCart );
-    }
-  }, true );
+  // $scope.$watch('products', function(n,o) {
+    // if (n !== o) {
+      // itemsOnCart.set( $scope.itemsOnCart );
+    // }
+  // }, true );
 
   // is available
   $scope.isAvailable = function(product) {
@@ -33,13 +32,13 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, itemsF
 
   // add item 
   $scope.addToCart = function(product) {
-    console.log(product);
-    return $scope.products;
+    itemsOnCart.update(product);
+    // return $scope.products;
   };
 
   // remove from cart
   $scope.removeFromCart = function(product) {
-    console.log(product);
+    return product;
   };
 
   // tools
@@ -50,6 +49,6 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, itemsF
   };
 
   // initializers
-  $scope.itemsOnCart = itemsFactory.get();
+  $scope.itemsOnCart = itemsOnCart.get();
   $scope.products = productsFactory.get();
 });
