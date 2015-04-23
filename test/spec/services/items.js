@@ -124,28 +124,21 @@ describe('Service: itemsOnCart', function () {
   describe('testing add method', function() {
     it('add should add a new element', function() {
       expect(itemsOnCart.add({ id: 4, onCart: 1})).toBe(true);
+      expect(itemsOnCart.add({ id: 5, onCart: 10})).toBe(true);
+    });
+
+    it('add shouldn\'t add a new element', function() {
+      expect(itemsOnCart.add({ id: 4, onCart: 2})).toBe(false);
+      expect(itemsOnCart.add({ id: 6, onCart: 10, some: 'some'})).toBe(false);
     });
   });
   
   // set method
   describe('testing set method', function() {
-    
     it('it should return an empty array', function() {
-      itemsOnCart.set([]);
+      itemsOnCart.reset();
       expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
       expect(itemsOnCart.get().length).toEqual(0);
-    });
-
-    it('it should return a non empty array', function() {
-      itemsOnCart.set([{}]);
-      expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
-      expect(itemsOnCart.get().length).toBeGreaterThan(0);
-    });
-
-    it('it should return a two elemtns array', function() {
-      itemsOnCart.set([{},{}]);
-      expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
-      expect(itemsOnCart.get().length).toBeGreaterThan(0);
     });
 
   });
