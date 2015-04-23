@@ -62,7 +62,6 @@ describe('Service: itemsOnCart', function () {
     for (var i = 0; i <= 4; i++) {
       items.push({
         id: i,
-        stock: 50 + i,
         onCart: 10 + i
       });
     }
@@ -79,7 +78,6 @@ describe('Service: itemsOnCart', function () {
     it('the element should be the same as before', function() {
       for(var i in itemsOnCart.get()) {
         expect(itemsOnCart.get()[i].id).toEqual(items[i].id);
-        expect(itemsOnCart.get()[i].stock).toEqual(items[i].stock);
         expect(itemsOnCart.get()[i].onCart).toEqual(items[i].onCart);
       }
     });
@@ -107,6 +105,7 @@ describe('Service: itemsOnCart', function () {
     it('isValid should not allowed wrong format', function() {
       expect(itemsOnCart.isValid({ stock: 50 })).toBe(false);
       expect(itemsOnCart.isValid({ id: 4 })).toBe(false);
+
       expect(itemsOnCart.isValid({ onCart: 10 })).toBe(false);
       expect(itemsOnCart.isValid({
         id: 1,
@@ -120,9 +119,28 @@ describe('Service: itemsOnCart', function () {
     });
   });
 
+  // find method 
+  describe('testing find method', function() {
+    it('should not find the product', function() {
+      itemsOnCart.reset();
+      expect(itemsOnCart.find(4)).toBe(false);
+      expect(itemsOnCart.find(5)).toBe(false);
+    });
+
+    it('should find a object', function() {
+      itemsOnCart.reset();
+      itemsOnCart.add({ id: 5, onCart: 10});
+      expect(itemsOnCart.find(5)).toBe(true);
+      expect(itemsOnCart.find(6)).toBe(false);
+      itemsOnCart.add({ id: 6, onCart: 1});
+      expect(itemsOnCart.find(6)).toBe(true);
+    });
+  });
+
   // add method
   describe('testing add method', function() {
     it('add should add a new element', function() {
+      itemsOnCart.reset();
       expect(itemsOnCart.add({ id: 4, onCart: 1})).toBe(true);
       expect(itemsOnCart.add({ id: 5, onCart: 10})).toBe(true);
     });
@@ -141,11 +159,83 @@ describe('Service: itemsOnCart', function () {
       expect(itemsOnCart.get().length).toEqual(0);
     });
 
+
+    it('shouldn\'t return and empty array', function() {
+      itemsOnCart.set([{}]);
+      expect(itemsOnCart.get().length).toEqual(1);
+    });
+
   });
 
-
   // update method
+  describe('testing update method', function() {
+    it('update should modify the element', function() {
+      itemsOnCart.reset();
+      expect(itemsOnCart.add({id: 10, onCart: 3 })).toBe(true); 
+      expect(itemsOnCart.add({id: 4, onCart: 2 })).toBe(true); 
+      expect(itemsOnCart.find(10)).toBe(true);
+      expect(itemsOnCart.find(4)).toBe(true);
+      expect(itemsOnCart.update({id:10, onCart: 1})).toBe(true);
+      expect(itemsOnCart.update({id:4, onCart: 2})).toBe(true);
+    });
+
+    it('update should\'t modify a elemtn', function() {
+      itemsOnCart.reset();
+      expect(itemsOnCart.add({id: 10, onCart: 3 })).toBe(true); 
+      expect(itemsOnCart.add({id: 4, onCart: 2 })).toBe(true); 
+      expect(itemsOnCart.find(10)).toBe(true);
+      expect(itemsOnCart.find(4)).toBe(true);
+      expect(itemsOnCart.update({id:11, onCart: 1})).toBe(false);
+      expect(itemsOnCart.update({id:40, onCart: 2})).toBe(false);
+    });
+  });
+
   // remove method
-  // 
+  describe('testing remove method', function() {
+    it('should remove an element', function() {
+      itemsOnCart.reset();
+      expect(itemsOnCart.add({id: 5, onCart: 3 })).toBe(true); 
+      expect(itemsOnCart.remove(5)).toBe(true);
+      expect(itemsOnCart.find(5)).toBe(false);
+    });
+
+    it('should remove an element', function() {
+      itemsOnCart.reset();
+      expect(itemsOnCart.add({id: 5, onCart: 3 })).toBe(true); 
+      expect(itemsOnCart.remove(4)).toBe(false);
+      expect(itemsOnCart.find(5)).toBe(true);
+    });
+  });
+
+  // reset
+  describe('testing reset method', function() {
+    it('it should return a empty array', function() {
+      expect(itemsOnCart.add({id: 10, onCart: 3 })).toBe(true); 
+      expect(itemsOnCart.add({id: 1, onCart: 3 })).toBe(true); 
+      itemsOnCart.reset();
+      expect(itemsOnCart.get().length).toBe(0);
+    });
+  });
+
+  // validate all
+  describe('testing validate All method', function() {
+    it('should validate all the elemtns', function() {
+      var elements = [
+        { id: 2, onCart: 3 },
+        { id: 10, onCart: 5 },
+        { id: 525, onCart: 1 }
+      ];
+      expect(itemsOnCart.validateAll(elements)).toBe(true); 
+    });
+
+    it('should validate all the elemtns', function() {
+      var elements = [
+        { id: 2, onCart: 3 },
+        { id: 10, onCart: 5 },
+        { id: 525, foo: 1 }
+      ];
+      expect(itemsOnCart.validateAll(elements)).toBe(false); 
+    });
+  });
 });
 

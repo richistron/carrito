@@ -16,7 +16,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
   }));
 
-  xit('should have a products array', function() {
+  it('should have a products array', function() {
     expect(scope.products).toEqual(jasmine.any(Array));
   });
 });
