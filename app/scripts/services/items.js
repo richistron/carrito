@@ -9,35 +9,43 @@
  * items on cart
  */
 angular.module('carritoApp').factory('itemsOnCart', function () {
+  // local storage string id
   var storageId = 'checkout-items';
+
   return {
     get: function() {
       return JSON.parse(localStorage.getItem(storageId) || '[]');
     },
+
     set: function(items) {
       return localStorage.setItem(storageId, JSON.stringify(items));
     },
+
     update: function(product) {
-      return (this.getIndex(product.id) === -1) ? this.addProductToCart(product) : this.updateElement(product);
+      return product;
     },
-    addProductToCart: function(product) {
-      console.log('add product');
-      var products = this.get();
-      products.push(product);
-      this.set(products);
-      debugger
+
+    remove: function(productId) {
+      return productId;
     },
-    updateElement: function(product) {
-                     console.log('update el');
-      var el = this.getIndex(product.id);
-      var elements = this.get();
-      elements[el] = _.merge(elements[el], product);
-      this.set(elements);
+
+    add: function(product) {
+      if (this.isValid(product) && !this.find(product.id) {
+        return true;
+      }
+      return false;
     },
-    getIndex: function(id) {
-      return _.indexOf(this.get(), function(p) {
-        return p.id === id;
-      });
+
+    isValid: function(product) {
+      return _.isPlainObject(product) && _.has(product, 'id')  && _.has(product, 'onCart') && _.keys(product).length === 2;
+    },
+
+    find: function(productId) {
+      return _.findIndex(this.get(), function(p) {
+        p.id === productId;
+      }) !== -1;
     }
+
   };
 });
+

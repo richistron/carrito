@@ -11,64 +11,148 @@ describe('Service: itemsOnCart', function () {
     itemsOnCart = _itemsOnCart_;
   }));
 
-  // basic test
-  it('should do something', function () {
-    expect(!!itemsOnCart).toBe(true);
-  });
+  // basic tests
+  describe('running smoke tests for itemsOnCart', function() {
 
-  // should be and object
-  it('itemsOncart should be an object', function(){
-    expect(itemsOnCart).toEqual(jasmine.any(Object));
-  });
+    it('should do something', function () {
+      expect(!!itemsOnCart).toBe(true);
+    });
 
-  // should have get method
-  it('itemsOnCart should be a function', function() {
-    expect(itemsOnCart.get).toEqual(jasmine.any(Function));
-  });
+    it('itemsOncart should be an object', function(){
+      expect(itemsOnCart).toEqual(jasmine.any(Object));
+    });
 
-  // should have set method
-  it('should have a set method', function() {
-    expect(itemsOnCart.get).toEqual(jasmine.any(Function));
-  });
+    it('should have a get method', function() {
+      expect(itemsOnCart.get).toEqual(jasmine.any(Function));
+    });
 
-  // get must return and empty array
-  it('get should return and empty array', function() {
-    expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
-    expect(itemsOnCart.get().length).toEqual(0);
-  });
+    it('should have a set method', function() {
+      expect(itemsOnCart.set).toEqual(jasmine.any(Function));
+    });
 
-  // set should add a new element
-  it('set should add a new element', function() {
-    expect(itemsOnCart.get().length).toEqual(0);
-    itemsOnCart.set([{ id:1, stock: 15, onCart: 1 }]);
-    expect(itemsOnCart.get().length).toEqual(1);
-    expect(itemsOnCart.get()[0]).toEqual({
-      id: 1,
-      stock: 15,
-      onCart: 1
+    it('should have an update method', function() {
+      expect(itemsOnCart.update).toEqual(jasmine.any(Function));
+    });
+
+    it('should have an update method', function() {
+      expect(itemsOnCart.update).toEqual(jasmine.any(Function));
+    });
+
+    it('should have an remove method', function() {
+      expect(itemsOnCart.remove).toEqual(jasmine.any(Function));
+    });
+
+    it('should have an find method', function() {
+      expect(itemsOnCart.find).toEqual(jasmine.any(Function));
+    });
+
+    it('should have an isValid  method', function() {
+      expect(itemsOnCart.isValid).toEqual(jasmine.any(Function));
+    });
+
+    it('should have an add  method', function() {
+      expect(itemsOnCart.add).toEqual(jasmine.any(Function));
     });
   });
 
-  // update should update the product id
-  it('should update the product id', function() {
-    expect(itemsOnCart.update).toEqual(jasmine.any(Function));
-    itemsOnCart.set([{
-      id: 2,
-      stock: 15,
-      onCart: 4
-    }]);
-    expect(itemsOnCart.get()[0].id).toEqual(2);
-    expect(itemsOnCart.get()[0].stock).toEqual(15);
-    expect(itemsOnCart.get()[0].onCart).toEqual(4);
-    itemsOnCart.update({
-      id: 2,
-      stock: 10,
-      onCart: 8
+
+  // get method
+  describe('testing get method', function() {
+    var items = [];
+    for (var i = 0; i <= 4; i++) {
+      items.push({
+        id: i,
+        stock: 50 + i,
+        onCart: 10 + i
+      });
+    }
+
+    it('it should return and empty array', function() {
+      expect(itemsOnCart.get()).toEqual([]);
     });
-    expect(itemsOnCart.get()[0].id).toEqual(2);
-    expect(itemsOnCart.get()[0].stock).toEqual(10);
-    expect(itemsOnCart.get()[0].onCart).toEqual(8);
+
+    it('it should return a arrar with 5 elements', function() {
+      itemsOnCart.set(items);
+      expect(itemsOnCart.get().length).toEqual(5);
+    });
+
+    it('the element should be the same as before', function() {
+      for(var i in itemsOnCart.get()) {
+        expect(itemsOnCart.get()[i].id).toEqual(items[i].id);
+        expect(itemsOnCart.get()[i].stock).toEqual(items[i].stock);
+        expect(itemsOnCart.get()[i].onCart).toEqual(items[i].onCart);
+      }
+    });
+
+    it('should be an empty array again', function() {
+      itemsOnCart.set([]);
+      expect(itemsOnCart.get().length).toEqual(0);
+      expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
+    });
   });
 
+  // isValid method
+  describe('isValid method', function() {
+
+    it('isValid should throw a invalid format error', function() {
+      expect(itemsOnCart.isValid([])).toBe(false);
+      expect(itemsOnCart.isValid('')).toBe(false);
+      expect(itemsOnCart.isValid(10)).toBe(false);
+      expect(itemsOnCart.isValid(null)).toBe(false);
+      expect(itemsOnCart.isValid(undefined)).toBe(false);
+      expect(itemsOnCart.isValid(0.5)).toBe(false);
+      expect(itemsOnCart.isValid(function(){})).toBe(false);
+    });
+
+    it('isValid should not allowed wrong format', function() {
+      expect(itemsOnCart.isValid({ stock: 50 })).toBe(false);
+      expect(itemsOnCart.isValid({ id: 4 })).toBe(false);
+      expect(itemsOnCart.isValid({ onCart: 10 })).toBe(false);
+      expect(itemsOnCart.isValid({
+        id: 1,
+        stock: 40,
+        name: 'panchito'
+      })).toBe(false);
+      expect(itemsOnCart.isValid({
+        id: 1,
+        onCart: 50
+      })).toBe(true);
+    });
+  });
+
+  // add method
+  describe('testing add method', function() {
+    it('add should add a new element', function() {
+      expect(itemsOnCart.add({ id: 4, onCart: 1})).toBe(true);
+    });
+  });
+  
+  // set method
+  describe('testing set method', function() {
+    
+    it('it should return an empty array', function() {
+      itemsOnCart.set([]);
+      expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
+      expect(itemsOnCart.get().length).toEqual(0);
+    });
+
+    it('it should return a non empty array', function() {
+      itemsOnCart.set([{}]);
+      expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
+      expect(itemsOnCart.get().length).toBeGreaterThan(0);
+    });
+
+    it('it should return a two elemtns array', function() {
+      itemsOnCart.set([{},{}]);
+      expect(itemsOnCart.get()).toEqual(jasmine.any(Array));
+      expect(itemsOnCart.get().length).toBeGreaterThan(0);
+    });
+
+  });
+
+
+  // update method
+  // remove method
+  // 
 });
 
