@@ -38,8 +38,16 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'app/views/*.html': 'ng-html2js'
+      'app/views/*.html': 'ng-html2js',
+      'app/scripts/**/*.js': ['coverage']
     },
+
+    coverageReporter: {  
+      type: 'html',
+      dir: 'coverage'
+    },
+
+    reporters: ['progress', 'coverage'],
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'app/',
@@ -64,6 +72,7 @@ module.exports = function(config) {
     plugins: [
       'karma-phantomjs-launcher',
       'karma-ng-html2js-preprocessor',
+      'karma-coverage',
       'karma-jasmine'
     ],
 
