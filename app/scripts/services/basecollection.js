@@ -10,31 +10,108 @@
 angular.module('carritoApp').factory('BaseCollection', function () {
 
   // BaseCollection Class
-  function BaseCollection(collection) {
-    this.setup(collection);
-  }
+  var BaseCollection = (function() {
 
-  // setup constructor
-  BaseCollection.prototype.setup = function(collection) {
-    if (!Array.isArray(collection)) {
-      throw new Error('collection must be an array');
+    // constructor
+    function BaseCollection(collection) {
+      this.setup(collection);
     }
 
-    collection.foreach(function(i) {
-      if (!i.id) {
-        throw new Error('all items should contain and id');
+    // setup
+    BaseCollection.prototype.setup = function(collection) {
+      if (!Array.isArray(collection) || collection.length === 0) {
+        throw new Error('collection must be an array');
       }
-      this.attributes[this.setPrefix(i.id)] = i;
-    });
-  };
 
-  // set prefix
-  BaseCollection.prototype.setPrefix = function(id) {
-    return 'item-' + id;
-  };
+      this.attributes = {};
 
-  // collection attributes
-  BaseCollection.prototype.attributes = {};
+      collection.forEach((function(_this) {
+        return function(i) {
+          if (!i.id) {
+            throw new Error('all items should contain and id');
+          }
+          if (_this.attributes[_this.getPrefix(i.id)]) {
+            throw new Error('duplicated id');
+          } else {
+            _this.attributes[_this.getPrefix(i.id)] = i;
+          }
+        };
+      })(this));
+    };
 
+    // set prefix
+    BaseCollection.prototype.getPrefix = function(id) {
+      if (isNaN(id)) {
+        throw new Error('id is not a number');
+      }
+      return 'item-' + id;
+    };
+
+    // find item
+    BaseCollection.prototype.find = function(id) {
+      return this.attributes[this.getPrefix(id)] || false;
+    };
+
+    // replace item
+    BaseCollection.prototype.replace = function(data) {
+      var item = this.find(data.id);
+      if (!item) {
+        throw new Error('object does not exists');
+      }
+      this.attributes[this.getPrefix(data.id)] = data;
+    };
+
+    // merge item
+    BaseCollection.prototype.merge = function(data) {
+      var item = this.find(data.id);
+      if (!item) {
+        throw new Error('object does not exists');
+      }
+      this.attributes[this.getPrefix(data.id)] = _.merge(item, data);
+    };
+
+    // get all items
+    BaseCollection.prototype.getAll = function() {
+      var items = [];
+      for(var key in this.attributes) {
+        items.push(this.attributes[key]);
+      }
+      return items;
+    };
+
+    // reset collection
+    BaseCollection.prototype.reset = function(collection) {
+      if (this.validateCollection(collection)) {
+        this.setup(collection);
+      } else {
+        throw new Error('invalid collection');
+      }
+    };
+
+    // validate collection
+    BaseCollection.prototype.validateCollection = function(collection) {
+      var error = false, ids = [];
+      if (!Array.isArray(collection) || collection.length === 0) {
+        error = true;
+      }
+      collection.forEach(function(item) {
+        if (!item.id || ids['item-' + item.id]) {
+          error = true;
+        } else {
+          ids['item-' + item.id] = true;
+        }
+      });
+      if (error) {
+        return false;
+      }
+      return true;
+    };
+
+    return BaseCollection;
+  })();
+
+  
   return BaseCollection;
+
 });
+
