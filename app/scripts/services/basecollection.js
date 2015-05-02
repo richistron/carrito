@@ -107,6 +107,15 @@ angular.module('carritoApp').factory('BaseCollection', function () {
       return true;
     };
 
+    // add item
+    BaseCollection.prototype.add = function(item) {
+      if (!item.id || this.find(item.id)) {
+        throw new Error('Duplicated or id not defined');
+      }
+      this.attributes[this.getPrefix(item.id)] = item;
+      return this;
+    };
+
     return BaseCollection;
   })();
 

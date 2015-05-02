@@ -265,5 +265,38 @@ describe('Service: BaseCollection', function () {
       new BaseCollection(items);
     }).toThrowError('duplicated id');
   });
+
+  // add tests
+  it('add should fail, eobject with no id', function() {
+    expect(function() {
+      var collection = new BaseCollection([{id:1,foo:true}]);
+      collection.add({foo: 25});
+    }).toThrowError('Duplicated or id not defined');
+  });
+
+  it('add should fail, eobject with duplicated id', function() {
+    expect(function() {
+      var collection = new BaseCollection([{id:1,foo:true}]);
+      collection.add({ id:1, foo: 25 });
+    }).toThrowError('Duplicated or id not defined');
+  });
+
+  it('add should add a new item to the collection', function() {
+    expect((function() {
+      var collection = new BaseCollection([{id:1,foo:true}]);
+      collection.add({ id:2, foo: 25 });
+      return collection.getAll().length;
+    })()).toBe(2);
+  });
+
+  it('add should add a new item to the collection', function() {
+    expect((function() {
+      var collection = new BaseCollection([{id:1,foo:true}]);
+      collection.add({ id:2, foo: 26 });
+      collection.add({ id:3, foo: 27 });
+      collection.add({ id:4, foo: 28 });
+      return collection.getAll().length;
+    })()).toBe(4);
+  });
 });
 
