@@ -116,6 +116,15 @@ angular.module('carritoApp').factory('BaseCollection', function () {
       return this;
     };
 
+
+    BaseCollection.prototype.remove = function(id) {
+      if (this.attributes[this.getPrefix(id)]) {
+        delete this.attributes[this.getPrefix(id)];
+        return true;
+      }
+      return false;
+    };
+
     return BaseCollection;
   })();
 

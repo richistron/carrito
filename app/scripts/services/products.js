@@ -7,7 +7,7 @@
  * # products
  * Factory in the carritoApp.
  */
-angular.module('carritoApp').factory('productsFactory', function () {
+angular.module('carritoApp').factory('ProductsFactory', function (BaseCollection) {
   var products = [
     {
       id:           1,
@@ -46,9 +46,20 @@ angular.module('carritoApp').factory('productsFactory', function () {
     }
   ];
 
-  return {
-    get: function () {
-      return products;
+  var Products = (function(proto) {
+
+    // constructor
+    function Products() {
+      this.setup(products);
     }
-  };
+    
+    // extend BaseCollection
+    Products.prototype = Object.create(proto);
+
+    return Products;
+
+  })(BaseCollection.prototype);
+
+  return Products;
 });
+

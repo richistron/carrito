@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="product in products">
+    <tr ng-repeat="product in products.getAll()">
       <td> {{ product.name }} </td>
       <td> {{ product.description }} </td>
       <td ng-class="isAvailable(product) ? 'success' : 'warning'"> {{ isAvailable(product) ? 'in stock' : 'out of stock' }} </td>

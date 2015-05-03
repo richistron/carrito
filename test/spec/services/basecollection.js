@@ -298,5 +298,19 @@ describe('Service: BaseCollection', function () {
       return collection.getAll().length;
     })()).toBe(4);
   });
+
+  it('remove should delete items', function() {
+    var collection = new BaseCollection([
+      { id:9, foo: false },
+      { id:8, foo: false },
+      { id:7, foo: false },
+      { id:6, foo: false }
+    ]);
+    expect(collection.getAll().length).toBe(4);
+    expect(collection.remove(6)).toBe(true);
+    expect(collection.getAll().length).toBe(3);
+    expect(collection.remove(9)).toBe(true);
+    expect(collection.getAll().length).toBe(2);
+  });
 });
 
