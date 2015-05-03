@@ -140,4 +140,76 @@ describe('Controller: CheckoutCtrl', function () {
     });
   });
 
+  describe('testing total items', function() {
+    it('add multiple times same product', function() {
+      expect(scope.totalItems()).toBe(0);
+      var products = scope.products.getAll();
+      var product = products[Math.floor(Math.random() * products.length)];
+      var stock = product.stock ;
+      for (var i = 0; i <= stock; i++) {
+        scope.addToCart(product);
+      }
+      expect(scope.totalItems()).toBe(i);
+    });
+
+    it('add same two different items', function() {
+      expect(scope.totalItems()).toBe(0);
+      var products = scope.products.getAll();
+      var product1 = products[0];
+      var product2 = products[1];
+      scope.addToCart(product1);
+      scope.addToCart(product2);
+      expect(scope.totalItems()).toBe(2);
+    });
+
+    it('add same two from one and one from other', function() {
+      expect(scope.totalItems()).toBe(0);
+      var products = scope.products.getAll();
+      var product1 = products[0];
+      var product2 = products[1];
+      scope.addToCart(product1);
+      scope.addToCart(product2);
+      scope.addToCart(product2);
+      expect(scope.totalItems()).toBe(3);
+    });
+
+  });
+
+  describe('testing getTotal', function() {
+    it('adds one element and validates prices', function() {
+      expect(scope.totalItems()).toBe(0);
+      var products = scope.products.getAll();
+      var product = products[0];
+      scope.addToCart(product);
+      expect(product.price * 1).toBe(scope.getTotal());
+    });
+
+    it('adds one element and validates prices', function() {
+      expect(scope.totalItems()).toBe(0);
+      var products = scope.products.getAll();
+      var product = products[Math.floor(Math.random() * products.length)];
+      for (var i = 0; i <= product.stock; i++) {
+        scope.addToCart(product);
+      }
+      expect(product.price * i).toBe(scope.getTotal());
+    });
+
+    it('adds one element and validates prices', function() {
+      expect(scope.totalItems()).toBe(0);
+      var products = scope.products.getAll();
+      var product1 = products[0];
+      var product2 = products[1];
+      scope.addToCart(product1);
+      scope.addToCart(product2);
+      scope.addToCart(product2);
+      expect((function() {
+        var total = product1.price;
+        total = total + product2.price;
+        total = total + product2.price;
+        return total;
+      })()).toBe(scope.getTotal());
+    });
+  });
+
 });
+

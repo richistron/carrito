@@ -63,6 +63,26 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsO
     $scope.itemsOnCart.save();
   };
 
+  // totalItems
+  $scope.totalItems = function() {
+    var total = 0;
+    var items = $scope.itemsOnCart.getAll();
+    items.forEach(function(item) {
+      total = total + item.cart;
+    });
+    return total;
+  };
+
+  // get total
+  $scope.getTotal = function() {
+    var total = 0;
+    var items = $scope.itemsOnCart.getAll();
+    items.forEach(function(item) {
+      total = total + (item.cart * $scope.products.find(item.id).price);
+    });
+    return total;
+  };
+
   // initializers
   $scope.itemsOnCart = new ItemsOnCart(); 
   $scope.products = new ProductsFactory();

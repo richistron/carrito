@@ -1,11 +1,11 @@
 <aside class="carrito-widget">
   <i class="fa fa-cart-arrow-down fa-5x"></i>
   <div class="product-grid">
-    <div class="product-im" ng-repeat="item in items">
+    <div class="product-im" ng-repeat="item in itemsOnCart.getAll()">
       <img src="http://www.placecage.com/c/20/20" />
     </div>
   </div>
-  <div class="totals" ng-modal="items">
+  <div class="totals">
     <div class="items-count">
       Items: {{ totalItems() }}
     </div>
