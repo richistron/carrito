@@ -8,8 +8,6 @@
  * Controller of the carritoApp
  */
 angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsOnCart, ProductsFactory) {
-  localStorage.clear();
-  
   // is available
   $scope.isAvailable = function(product) {
     return product.stock > 0;
@@ -83,9 +81,23 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsO
     return total;
   };
 
+  // syncInventory
+  $scope.syncInventory = function() {
+    $scope.itemsOnCart.getAll().forEach(function(i) {
+      var product = $scope.products.find(i.id);
+      $scope.products.merge({
+        id: i.id,
+        stock: product.stock - i.cart
+      });
+    });
+  };
+
   // initializers
-  $scope.itemsOnCart = new ItemsOnCart(); 
-  $scope.products = new ProductsFactory();
+  (function() {
+    $scope.products = $scope.products || new ProductsFactory();
+    $scope.itemsOnCart = $scope.itemsOnCart || new ItemsOnCart(); 
+    $scope.syncInventory();
+  })();
 
 });
 

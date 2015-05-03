@@ -9,9 +9,6 @@
  * items on cart
  */
 angular.module('carritoApp').factory('ItemsOnCart', function (BaseCollection) {
-
-  localStorage.clear();
-
   // class ItemOnCart
   var ItemsOnCart = (function(proto) {
 
