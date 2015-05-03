@@ -95,7 +95,7 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsO
   // initializers
   (function() {
     $scope.products = $scope.products || new ProductsFactory();
-    $scope.itemsOnCart = $scope.itemsOnCart || new ItemsOnCart(); 
+    $scope.itemsOnCart = $scope.itemsOnCart || new ItemsOnCart();
     $scope.syncInventory();
   })();
 

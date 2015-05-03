@@ -28,13 +28,13 @@ describe('Service: itemsOnCart', function () {
 
   describe('testing load', function() {
     it('load should return a empty array', function() {
-      var itemsOnCart = new ItemsOnCart();
+      var itemsOnCart = new ItemsOnCart(true);
       expect(itemsOnCart.getAll()).toEqual(jasmine.any(Array));
       expect(itemsOnCart.getAll().length).toBe(0);
     });
 
     it('load should return a empty non empty', function() {
-      var itemsOnCart = new ItemsOnCart();
+      var itemsOnCart = new ItemsOnCart(true);
       itemsOnCart.add({ id:1, foo: false }).add({ id:2, foo:true }).save();
       var itemsOnCart2 = new ItemsOnCart();
       expect(itemsOnCart2.getAll()).toEqual(jasmine.any(Array));
@@ -45,7 +45,7 @@ describe('Service: itemsOnCart', function () {
 
   describe('testing save', function() {
     it('save should store elements on local storage', function() {
-      var itemsOnCart0 = new ItemsOnCart();
+      var itemsOnCart0 = new ItemsOnCart(true);
       expect(itemsOnCart0.getAll().length).toBe(0);
       itemsOnCart0.add({ id: 5, foo: true }).save();
       var itemsOnCart1 = new ItemsOnCart();

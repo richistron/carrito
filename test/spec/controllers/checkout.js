@@ -57,7 +57,7 @@ describe('Controller: CheckoutCtrl', function () {
           id: products[0].id,
           cart: 1
         });
-        expect(scope.itemsOnCart.getAll().length).toBe(1);
+        expect(scope.itemsOnCart.getAll().length).toBe(2);
         scope.removeFromCart(products[1]);
         expect(scope.itemsOnCart.getAll().length).toBe(1);
       }).toThrowError('product not found');
@@ -67,6 +67,7 @@ describe('Controller: CheckoutCtrl', function () {
 
   describe('testing addToCart', function() {
     it('it should add to the cart', function() {
+      scope.itemsOnCart.load(true); 
       var items = scope.products.getAll();
       var item = items[Math.floor(Math.random() * items.length)];
       var stock = item.stock - 1;
@@ -80,6 +81,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
 
     it('it should add to the cart and add + 1', function() {
+      scope.itemsOnCart.load(true); 
       var items = scope.products.getAll();
       var item = items[Math.floor(Math.random() * items.length)];
       var stock = item.stock - 1;
@@ -107,6 +109,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
 
     it('item is not on cart', function() {
+      scope.itemsOnCart.load(true); 
       var products = scope.products.getAll();
       var product = products[Math.floor(Math.random() * products.length)];
       scope.addToCart(product);
@@ -142,6 +145,7 @@ describe('Controller: CheckoutCtrl', function () {
 
   describe('testing total items', function() {
     it('add multiple times same product', function() {
+      scope.itemsOnCart.load(true); 
       expect(scope.totalItems()).toBe(0);
       var products = scope.products.getAll();
       var product = products[Math.floor(Math.random() * products.length)];
@@ -153,6 +157,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
 
     it('add same two different items', function() {
+      scope.itemsOnCart.load(true); 
       expect(scope.totalItems()).toBe(0);
       var products = scope.products.getAll();
       var product1 = products[0];
@@ -163,6 +168,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
 
     it('add same two from one and one from other', function() {
+      scope.itemsOnCart.load(true); 
       expect(scope.totalItems()).toBe(0);
       var products = scope.products.getAll();
       var product1 = products[0];
@@ -177,6 +183,7 @@ describe('Controller: CheckoutCtrl', function () {
 
   describe('testing getTotal', function() {
     it('adds one element and validates prices', function() {
+      scope.itemsOnCart.load(true); 
       expect(scope.totalItems()).toBe(0);
       var products = scope.products.getAll();
       var product = products[0];
@@ -185,6 +192,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
 
     it('adds one element and validates prices', function() {
+      scope.itemsOnCart.load(true); 
       expect(scope.totalItems()).toBe(0);
       var products = scope.products.getAll();
       var product = products[Math.floor(Math.random() * products.length)];
@@ -195,6 +203,7 @@ describe('Controller: CheckoutCtrl', function () {
     });
 
     it('adds one element and validates prices', function() {
+      scope.itemsOnCart.load(true); 
       expect(scope.totalItems()).toBe(0);
       var products = scope.products.getAll();
       var product1 = products[0];
@@ -211,5 +220,10 @@ describe('Controller: CheckoutCtrl', function () {
     });
   });
 
+  describe('testing sync inventory', function() {
+    it('some test', function() {
+      // expect(false).toBe(true);
+    });
+  });
 });
 

@@ -13,18 +13,23 @@ angular.module('carritoApp').factory('ItemsOnCart', function (BaseCollection) {
   var ItemsOnCart = (function(proto) {
 
     // constructor
-    function ItemsOnCart() {
+    function ItemsOnCart(clean) {
       this.storageId = 'checkout-items';
-      this.load();
+      this.load(clean);
     }
 
     // extend BaseCollection
     ItemsOnCart.prototype = Object.create(proto);
 
     // load
-    ItemsOnCart.prototype.load = function() {
+    ItemsOnCart.prototype.load = function(clean) {
       this.attributes = {};
-      var items = JSON.parse(localStorage.getItem(this.storageId) || '[]');
+      var items;
+      if (clean === true) {
+        items = [];
+      } else {
+        items = JSON.parse(localStorage.getItem(this.storageId) || '[]');
+      }
       items.forEach((function(_this) {
         return function(i) {
           _this.add(i);
