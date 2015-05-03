@@ -26,7 +26,7 @@ describe('Controller: NavCtrl', function () {
 
   it('should have main controller and route', function(){
     expect(route.routes['/'].templateUrl).toEqual('views/main.html');
-    expect(route.routes['/'].controller).toEqual('MainCtrl');
+    expect(route.routes['/'].controller).toEqual('CheckoutCtrl');
     expect(route.routes['/'].originalPath).toEqual('/');
   });
 
