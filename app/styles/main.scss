@@ -24,6 +24,37 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   @extend .table-bordered;
   @extend .table-hover;
 }
+
+.carrito-widget {
+
+  .product-grid{
+
+    .product-im {
+      width: 60px;
+      height: 60px;
+      display: inline-block;
+      position: relative;
+
+      ul {
+        padding: 0;
+
+        li {
+          list-style: none;
+
+          &:first-child {
+            position: absolute;
+            color: white;
+            font-weight: blod;
+            opacity: 0.75;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
