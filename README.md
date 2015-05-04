@@ -53,3 +53,4 @@ git push heroku `git subtree split --prefix dist master`:master --force
 ```
 
 http://carrito.infraestructocho.com
+test coverage http://richistron.github.io/carrito/
