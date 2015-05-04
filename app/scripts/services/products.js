@@ -50,7 +50,9 @@ angular.module('carritoApp').factory('ProductsFactory', function (BaseCollection
 
     // constructor
     function Products() {
-      this.setup(products);
+      this.storageId = 'product-items';
+      var _products = JSON.parse(localStorage.getItem(this.storageId)) || products;
+      this.setup(_products);
     }
     
     // extend BaseCollection

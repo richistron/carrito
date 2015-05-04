@@ -66,7 +66,6 @@ describe('Service: products', function () {
   it('each element should have a stock', function () {
     products.getAll().forEach(function (product) {
       expect(product.stock).toBeDefined();
-      expect(product.stock).toBeGreaterThan(0);
     });
   });
 });

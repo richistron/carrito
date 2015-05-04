@@ -125,6 +125,27 @@ angular.module('carritoApp').factory('BaseCollection', function () {
       return false;
     };
 
+    // load
+    BaseCollection.prototype.load = function(clean) {
+      this.attributes = {};
+      var items;
+      if (clean === true) {
+        items = [];
+      } else {
+        items = JSON.parse(localStorage.getItem(this.storageId) || '[]');
+      }
+      items.forEach((function(_this) {
+        return function(i) {
+          _this.add(i);
+        };
+      })(this));
+    };
+
+    // save
+    BaseCollection.prototype.save = function() {
+      localStorage.setItem(this.storageId, JSON.stringify(this.getAll()));
+    };
+
     return BaseCollection;
   })();
 

@@ -37,6 +37,7 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsO
       stock: product.stock - 1
     });
     $scope.itemsOnCart.save();
+    $scope.products.save();
   };
 
   // remove from cart
@@ -59,6 +60,7 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsO
       stock: product.stock + 1
     });
     $scope.itemsOnCart.save();
+    $scope.products.save();
   };
 
   // totalItems
@@ -81,23 +83,9 @@ angular.module('carritoApp').controller('CheckoutCtrl', function ($scope, ItemsO
     return total;
   };
 
-  // syncInventory
-  $scope.syncInventory = function() {
-    $scope.itemsOnCart.getAll().forEach(function(i) {
-      var product = $scope.products.find(i.id);
-      $scope.products.merge({
-        id: i.id,
-        stock: product.stock - i.cart
-      });
-    });
-  };
-
   // initializers
-  (function() {
-    $scope.products = $scope.products || new ProductsFactory();
-    $scope.itemsOnCart = $scope.itemsOnCart || new ItemsOnCart();
-    $scope.syncInventory();
-  })();
+  $scope.products = new ProductsFactory();
+  $scope.itemsOnCart = new ItemsOnCart();
 
 });
 
